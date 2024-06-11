@@ -1,0 +1,52 @@
+SOFTWARE NECESARIO:
+
+- Java 21
+- MySQL 
+- Eclipse
+- Maven
+
+
+INSTRUCCIONES:
+
+1. Abrir terminal e iniciar sesión en mysql para crear la base de datos del servicio:
+Ejecutar [mysql -u root -p]
+Ingresar tu contraseña
+Ejecutar [create database cibel_db;]
+Ejecutar [exit]
+
+2. Crear las tablas y meter los datos a través del archivo de backup:
+Situarte en el mismo path que el archivo CIBEL/Docs/backup_cibel_db.sql
+Ejecutar [mysql -u root -p cibel_db < backup_cibel_db.sql]
+
+3. Comprobar que se han creado las tablas y metido los datos:
+Ejecutar [mysql -u root -p]
+Ingresar tu contraseña
+Ejecutar [use cibel_db;]
+Ejecutar [show tables;]
++-------------------------+
+| Tables_in_cibel_db      |
++-------------------------+
+| activo                  |
+| activo_x_vulnerabilidad |
+| amenaza                 |
+| categoria               |
+| categoria_x_control     |
+| control                 |
+| control_x_amenaza       |
+| tipo                    |
+| vulnerabilidad          |
++-------------------------+
+
+Ejecutar [select * from activo_x_vulnerabilidad;]
+Deberían salir 648 filas
+
+4. Desplegar el servicio:
+Abrir en Eclipse el proyecto CIBEL/CIBELServiceSpring
+Abrir el archivo src/main/resources/application.properties
+Cambiar el valor de spring.datasource.password con tu contraseña de mysql
+
+Abrir terminal en la carpeta CIBELServiceSpring
+Ejecutar [mvn clean package]
+Ejecutar [cd target/]
+Ejecutar [java -jar CIBELService.jar]
+

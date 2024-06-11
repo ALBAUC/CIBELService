@@ -1,0 +1,184 @@
+#Ordenadores
+Lenovo ThinkPad T440s
+Lenovo ThinkPad W541
+Apple Mac Mini
+ASUS ROG Zephyrus M GM501GS
+ASUSTek ZenBook Pro Due 15 UX582
+Lenovo Yoga
+Lenovo Flex
+Lenovo Miix
+Lenovo ThinkPad T460p
+Lenovo ThinkPad T495
+Lenovo ThinkPad X395
+Lenovo ThinkPad A485
+Lenovo ThinkPad A285
+Lenovo ThinkPad A475
+Lenovo ThinkPad A275
+Thinkpad X1 Fold Gen 1
+ASUS VivoMini
+Dell XPS 13 9370
+Dell XPS 13 2-in-1
+Dell Latitude Z600
+Dell Precision 7920
+Dell Precision 7910
+Dell Inspiron 5675
+Dell Optiplex
+Dell Latitude 2110
+HP ElitePad 900
+Dell Latitude E6430
+HP EliteBook 850
+
+#Smartphones
+iPhone 12
+iPhone 13
+Samsung Galaxy S5
+Huawei Mate 20
+Xiaomi Mi A1
+Xiaomi MIX 2
+Xiaomi MIX 3
+Xiaomi 5S Plus
+Xiaomi Mi Note 2
+Xiaomi Redmi 6 Pro
+Xiaomi Redmi Note 6 Pro
+Huawei Honor 4C
+Huawei Honor 6
+Huawei Mate S
+Huawei P9
+Huawei Honor 7
+Huawei Honor 5C
+Huawei P9 Lite
+Huawei Honor 8 Lite
+Huawei P10
+Huawei P10 Plus
+Huawei Honor 5S
+Huawei Mate9
+Huawei Mate9 Pro
+Huawei Honor 10
+Huawei HONOR 20 PRO
+Huawei Honor V10
+Huawei Honor V20
+Samsung S2 Galaxy
+Samsung Galaxy Note 2
+Samsung Galaxy S4
+Samsung Galaxy S7
+Samsung Galaxy S6
+Samsung Galaxy Note 3
+Samsung Galaxy S9
+Samsung Galaxy S10
+Samsung Note10
+Samsung A3
+Samsung A5
+Samsung A7
+Samsung A8+
+Samsung XCover4
+Samsung J5
+Samsung S7 Edge
+Samsung J7 Neo
+Iphone 5
+Iphone 7
+Iphone 8
+Iphone 9
+Iphone 10
+Iphone 11
+ASUS ZenFone 3 Max
+Asus ZenFone Max 4
+Asus ZenFone 5Q
+Asus ZenFone 3s Max
+Asus ZenFone 3 Laser
+
+#Smart TVs
+Samsung Smart TV X10P
+Samsung Smart TV X12
+Samsung Smart TV X14H
+Samsung Smart TV X14J
+Samsung Smart TV NT14U
+TCL Android Smart TV V8-R851T02-LF1
+TV Vizio P65
+TV Vizio E50x
+BRAVIA Smart TV
+Samsung D6000 TV
+Samsung PS50C7700
+Smart TV Box H96
+
+#Tablets
+Xiaomi Mi Pad 4
+Dell Latitude 7202
+
+#Consolas
+Playstation 3
+Microsoft Xbox 360
+
+#Impresoras
+HP OfficeJet Pro
+Brother MFC-9970CDW
+Xpress M288OFW
+Dell 3000cn
+
+#Relojes Inteligentes
+Pebble Smartwatch
+Apple Watch Ultra
+
+#Altavoces Inteligentes
+Amazon Echo Dot
+Google Home
+JBL Go 2
+
+#Auriculares inteligentes
+SONY Wireless Headphones WF-1000X
+JBL TUNE500BT
+
+#Iluminación inteligente
+TPLink Tapo L530
+Philips Smart Wi-Fi Wiz Connected
+
+#Termostatos inteligentes
+Radio Thermostat CT80
+Radio Thermostat CT50
+
+#Routers
+TP-LINK ARCHER C50
+Alcatel-Lucent CellPipe 7130
+Huawei HG8247
+ASUS RT-AC68U
+ASUS RT-N56U
+ASUS DSL-AC51
+ASUS RT-AC1200HP
+ASUS ROG Rapture GT-AX11000
+Huawei Honor Cube WS860
+
+#Repetidores y amplificadores
+Ayision Ays-WR01
+Intelbras NPLUG
+
+#Cámaras de seguridad IP inteligentes
+TP-Link Tapo C200
+Geutebruck G-Cam/EFD-2250
+ADC-V522IR
+
+#Alarmas y timbres de seguridad inteligentes
+ABUS Secvest FUAA50000
+Chuango 433 MHz burglar-alarm
+
+#Cerraduras inteligentes
+Tinxy Door Lock
+Nokelock Smart padlock O1
+
+#Detectores y sensores
+FLIR AX8
+Tollgrade SmartGrid LightHouse Sensor
+
+#Electrodomésticos inteligentes
+Dongguan Diqee Diqee360
+Jisiwei i3
+Rittal Chiller SK 3232-Series
+
+#Otros
+Sophos Cyberoam
+Finjan Vital Security Appliance 5100
+Innominate mGuard Smart HW
+Samsung SHR-5162
+Samsung SRN-16270D
+Samsung Exynos
+Samsung 850 Pro
+Seagate ST500LT015
+Seagate ST500LT025
