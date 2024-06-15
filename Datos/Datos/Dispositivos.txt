@@ -1,4 +1,5 @@
 #Ordenadores
+*Computers
 Lenovo ThinkPad T440s
 Lenovo ThinkPad W541
 Apple Mac Mini
@@ -29,6 +30,7 @@ Dell Latitude E6430
 HP EliteBook 850
 
 #Smartphones
+*Smartphones
 iPhone 12
 iPhone 13
 Samsung Galaxy S5
@@ -87,6 +89,7 @@ Asus ZenFone 3s Max
 Asus ZenFone 3 Laser
 
 #Smart TVs
+*Smart TVs
 Samsung Smart TV X10P
 Samsung Smart TV X12
 Samsung Smart TV X14H
@@ -101,41 +104,50 @@ Samsung PS50C7700
 Smart TV Box H96
 
 #Tablets
+*Tablets
 Xiaomi Mi Pad 4
 Dell Latitude 7202
 
 #Consolas
+*Consoles
 Playstation 3
 Microsoft Xbox 360
 
 #Impresoras
+*Printers
 HP OfficeJet Pro
 Brother MFC-9970CDW
 Xpress M288OFW
 Dell 3000cn
 
 #Relojes Inteligentes
+*Smart Watches
 Pebble Smartwatch
 Apple Watch Ultra
 
 #Altavoces Inteligentes
+*Smart Speakers
 Amazon Echo Dot
 Google Home
 JBL Go 2
 
 #Auriculares inteligentes
+*Smart headphones
 SONY Wireless Headphones WF-1000X
 JBL TUNE500BT
 
 #Iluminación inteligente
+*Smart lighting
 TPLink Tapo L530
 Philips Smart Wi-Fi Wiz Connected
 
 #Termostatos inteligentes
+*Smart thermostats
 Radio Thermostat CT80
 Radio Thermostat CT50
 
 #Routers
+*Routers
 TP-LINK ARCHER C50
 Alcatel-Lucent CellPipe 7130
 Huawei HG8247
@@ -147,32 +159,39 @@ ASUS ROG Rapture GT-AX11000
 Huawei Honor Cube WS860
 
 #Repetidores y amplificadores
+*Repeaters and amplifiers
 Ayision Ays-WR01
 Intelbras NPLUG
 
 #Cámaras de seguridad IP inteligentes
+*Smart IP security cameras
 TP-Link Tapo C200
 Geutebruck G-Cam/EFD-2250
 ADC-V522IR
 
 #Alarmas y timbres de seguridad inteligentes
+*Smart security alarms and doorbells
 ABUS Secvest FUAA50000
 Chuango 433 MHz burglar-alarm
 
 #Cerraduras inteligentes
+*Smart locks
 Tinxy Door Lock
 Nokelock Smart padlock O1
 
 #Detectores y sensores
+*Detectors and sensors
 FLIR AX8
 Tollgrade SmartGrid LightHouse Sensor
 
 #Electrodomésticos inteligentes
+*Smart appliances
 Dongguan Diqee Diqee360
 Jisiwei i3
 Rittal Chiller SK 3232-Series
 
 #Otros
+*Others
 Sophos Cyberoam
 Finjan Vital Security Appliance 5100
 Innominate mGuard Smart HW
