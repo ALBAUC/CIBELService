@@ -1,12 +1,10 @@
-SOFTWARE NECESARIO:
+Secciones:
+- Instrucciones para cargar datos en la base de datos mediante el archivo de backup
+- Instrucciones para cargar datos en la base de datos SIN archivo de backup
+- Explicación del código, los archivos y procedimiento
 
-- Java 21
-- MySQL 
-- Eclipse
-- Maven
-
-
-INSTRUCCIONES:
+**********************************************************************************
+Instrucciones para cargar datos en la base de datos mediante el archivo de backup:
 
 1. Abrir terminal e iniciar sesión en mysql para crear la base de datos del servicio:
 Ejecutar [mysql -u root -p]
@@ -15,7 +13,7 @@ Ejecutar [create database cibel_db;]
 Ejecutar [exit]
 
 2. Crear las tablas y meter los datos a través del archivo de backup:
-Situarte en el mismo path que el archivo CIBEL/Docs/backup_cibel_db.sql
+Situarte en el mismo path que el archivo CIBELService/Datos/backup_cibel_db.sql
 Ejecutar [mysql -u root -p cibel_db < backup_cibel_db.sql]
 
 3. Comprobar que se han creado las tablas y metido los datos:
@@ -23,25 +21,24 @@ Ejecutar [mysql -u root -p]
 Ingresar tu contraseña
 Ejecutar [use cibel_db;]
 Ejecutar [show tables;]
+Debería salir:
 +-------------------------+
 | Tables_in_cibel_db      |
 +-------------------------+
 | activo                  |
 | activo_x_vulnerabilidad |
-| amenaza                 |
-| categoria               |
-| categoria_x_control     |
-| control                 |
-| control_x_amenaza       |
+| aplicacion              |
+| dispositivo             |
 | tipo                    |
 | vulnerabilidad          |
+| vulnerabilidad_app      |
 +-------------------------+
 
-Ejecutar [select * from activo_x_vulnerabilidad;]
-Deberían salir 648 filas
+Ejecutar [select * from vulnerabilidad;]
+Comprobar que salen mas de 600 filas.
 
 4. Desplegar el servicio:
-Abrir en Eclipse el proyecto CIBEL/CIBELServiceSpring
+Abrir en Eclipse el proyecto CIBELService/CIBELServiceSpring
 Abrir el archivo src/main/resources/application.properties
 Cambiar el valor de spring.datasource.password con tu contraseña de mysql
 
@@ -49,4 +46,87 @@ Abrir terminal en la carpeta CIBELServiceSpring
 Ejecutar [mvn clean package]
 Ejecutar [cd target/]
 Ejecutar [java -jar CIBELService.jar]
+
+**********************************************************************************
+Instrucciones para cargar datos en la base de datos SIN archivo de backup:
+
+0. Abrir terminal e iniciar sesión en mysql para crear la base de datos del servicio:
+Ejecutar [mysql -u root -p]
+Ingresar tu contraseña
+Ejecutar [create database cibel_db;]
+Abrir en Eclipse el proyecto CIBELService/CIBELServiceSpring
+Abrir el archivo src/main/resources/application.properties
+Cambiar el valor de spring.datasource.password con tu contraseña de mysql
+
+1. Copiar el archivo CIBELService/Datos/LoadDatabase.java en el paquete es.unican.CIBEL (este código es el que carga los datos en la base de datos).
+2. Abrir terminal, situarse en el path CIBELService/CIBELServiceSpring y ejecutar [mvn clean package]. Ahora se cargarán los datos en la base de datos.
+3. ELIMINAR el archivo LoadDatabase.java del proyecto.
+4. Copiar el archivo CIBELService/Datos/LoadDatabase2.java en el paquete es.unican.CIBEL y renombrarlo a LoadDatabase.java.
+5. Abrir terminal, situarse en el path CIBELService/CIBELServiceSpring y ejecutar [mvn clean package]. Ahora se asignarán las url de las imágenes de los dispositivos. Solo se pueden 100 al día así que repetir este paso tantos días como sea necesario. Si se sale en eclipse un error relacionado con URI, no hacer caso porque no pasa nada.
+6. ELIMINAR el archivo LoadDatabase.java del proyecto.
+7. Abrir terminal, situarse en el path CIBELService/CIBELServiceSpring y ejecutar [mvn clean package]. Ahora se genera el jar definitivo que vamos a usar para desplegar el servicio.
+8. Ejecutar [cd target] y [java -jar CIBELService.jar]. Ahora debería estar el servicio desplegado en local. Hacer una petición por ejemplo a http://localhost:8080/apps para comprobarlo. 
+
+**********************************************************************************
+Explicación del código, los archivos y procedimiento:
+
+- En el archivo Dispositivos.txt están las listas de dispositivos ordenados por tipo con el siguiente formato:
+
+#TipoEnEspañol1
+*TipoEnIngles1
+NombreDispositivo1
+NombreDispositivo2
+…
+
+Si se quiere añadir un nuevo tipo de dispositivos o un dispositivo nuevo, añadir a la lista con el formato indicado.
+
+- En el archivo Aplicaciones.txt están las listas de aplicaciones ordenadas por tipo con el siguiente formato:
+
+#TipoEnEspañol1 
+*TipoEnIngles1
+NombreApp1, UrlIcono
+NombreApp2, UrlIcono
+…
+
+Si se quiere añadir un nuevo tipo de aplicaciones o una app nueva, añadir a la lista con el formato indicado.
+
+- El archivo DispositivosCVES.csv contiene las vulnerabilidades de los dispositivos.
+El campo Modelo contiene el nombre del dispositivo y este nombre debe estar en el archivo Dispositivos.txt para poder añadir esa vulnerabilidad al dispositivo.
+De este archivo se van a usar:
+    - row[0] (Modelo): nombre del dispositivo al que añadir la vulnerabilidad
+    - row[1] (CVE ID): id del CVE
+    - row[2] (Spanish Description): descripción del cve en español
+    - row[3] (English Description): descripción del cve en inglés
+    - row[6] (Confidentiality Impact): impacto del cve en confidencialidad
+    - row[7] (Integrity Impact): impacto del cve en integridad
+    - row[8] (Availability Impact): impacto del cve en disponibilidad
+    - row[9] (Base Score): gravedad del cve del 1 al 10
+    - row[10] (Base Severity): gravedad del cve en formato string (LOW, MEDIUM, HIGH, CRITICAL) 
+
+- El archivo AppsCVES.csv contiene las vulnerabilidades de las aplicaciones.
+El campo APP contiene el nombre de la aplicación y este nombre debe estar en el archivo Aplicaciones.txt para poder añadir esa vulnerabilidad a la aplicación.
+De este archivo se van a usar:
+    - row[0] (APP): nombre de la aplicación a la que añadir la vulnerabilidad
+    - row[1] (CVE ID): id del CVE
+    - row[2] (Spanish Description): descripción del cve en español
+    - row[3] (English Description): descripción del cve en inglés
+    - row[6] (Confidentiality Impact): impacto del cve en confidencialidad
+    - row[7] (Integrity Impact): impacto del cve en integridad
+    - row[8] (Availability Impact): impacto del cve en disponibilidad
+    - row[9] (Base Score): gravedad del cve del 1 al 10
+    - row[10] (Base Severity): gravedad del cve en formato string (LOW, MEDIUM, HIGH, CRITICAL) 
+    - row[13] (Version End Excluding): version de app hasta la que afecta el cve (excluyendo la version especifica mencionada)
+    - row[14] (Version End Including): version de app hasta la que afecta el cve (incluyendo la version específica mencionada)
+
+- Para leer los datos de los archivos indicados y cargarlos en la base de datos hay que usar la clase LoadDatabase.java.
+Hay que copiarla y pegarla en el paquete es.unican.CIBEL (porque debe estar en la raíz para que se ejecute al compilar el servicio).
+Este código primero lee los tipos y dispositivos del archivo Dispositivos.txt y los guarda en la base de datos. Luego lee las vulnerabilidades del archivo DispositivosCVES.csv y las va añadiendo a los dispositivos. (Cambiar la ruta de los archivos para que sea correcta en tu ordenador)
+Después hace lo mismo con las aplicaciones.
+Este archivo se ejecuta al hacer mvn clean package y TAMBIEN al desplegar el servicio con java -jar CIBELService.jar. Por eso hay que ELIMINARLO después de hacer mvn clean package puesto que ya se habrán creado las tablas y añadido los datos, si no lo eliminamos y ejecutamos el jar generado, se volverán a añadir los mismos datos duplicados generando problemas. Hay que volver a generar un JAR sin el archivo LoadDatabase.
+
+- Imágenes de los activos.
+En el caso de las aplicaciones, al ser pocas de momento, se han asignado manualmente. Es decir, se busca un icono de la aplicación, se sube a https://imgur.com para obtener una url fija y se asigna en el archivo Aplicaciones.txt.
+En el caso de los dispositivos, al ser muchos, se asignan automáticamente. En la clase LoadDatabase2 se realiza una búsqueda de imágenes en Google usando la API de Custom Search devolviendo la URL de la primera imagen encontrada. (Esta API solo deja hacer 100 peticiones al día, así que si se hay que asignar imágenes a mas de 100 dispositivos hay que hacerlo en varios días).
+
+
 
