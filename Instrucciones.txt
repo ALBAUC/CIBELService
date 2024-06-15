@@ -1,7 +1,29 @@
 Secciones:
+- Endpoints
+- Software necesario
 - Instrucciones para cargar datos en la base de datos mediante el archivo de backup
 - Instrucciones para cargar datos en la base de datos SIN archivo de backup
 - Explicación del código, los archivos y procedimiento
+
+**********************************************************************************
+Endpoints:
+
+/dispositivos
+/dispositivos/{id}
+/dispositivos/vulnerabilidades
+/dispositivos/tipos
+/apps
+/apps/{id}
+/apps/vulnerabilidades
+/apps/tipos
+
+**********************************************************************************
+Software necesario:
+
+- Java
+- MySQL
+- Eclipse
+- Maven
 
 **********************************************************************************
 Instrucciones para cargar datos en la base de datos mediante el archivo de backup:
