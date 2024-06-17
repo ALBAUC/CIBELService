@@ -17,6 +17,8 @@ Endpoints:
 /apps/vulnerabilidades
 /apps/tipos
 
+Una vez desplegado el servicio, se puede encontrar la documentación en http://localhost:8080/swagger-ui.html#/
+
 **********************************************************************************
 Software necesario:
 
