@@ -83,12 +83,19 @@ Abrir el archivo src/main/resources/application.properties
 Cambiar el valor de spring.datasource.password con tu contraseña de mysql
 
 1. Copiar el archivo CIBELService/Datos/LoadDatabase.java en el paquete es.unican.CIBEL (este código es el que carga los datos en la base de datos).
+
 2. Abrir terminal, situarse en el path CIBELService/CIBELServiceSpring y ejecutar [mvn clean package]. Ahora se cargarán los datos en la base de datos.
+
 3. ELIMINAR el archivo LoadDatabase.java del proyecto.
+
 4. Copiar el archivo CIBELService/Datos/LoadDatabase2.java en el paquete es.unican.CIBEL y renombrarlo a LoadDatabase.java.
+
 5. Abrir terminal, situarse en el path CIBELService/CIBELServiceSpring y ejecutar [mvn clean package]. Ahora se asignarán las url de las imágenes de los dispositivos. Solo se pueden 100 al día así que repetir este paso tantos días como sea necesario. Si se sale en eclipse un error relacionado con URI, no hacer caso porque no pasa nada.
+
 6. ELIMINAR el archivo LoadDatabase.java del proyecto.
+
 7. Abrir terminal, situarse en el path CIBELService/CIBELServiceSpring y ejecutar [mvn clean package]. Ahora se genera el jar definitivo que vamos a usar para desplegar el servicio.
+
 8. Ejecutar [cd target] y [java -jar CIBELService.jar]. Ahora debería estar el servicio desplegado en local. Hacer una petición por ejemplo a http://localhost:8080/apps para comprobarlo. 
 
 **********************************************************************************
