@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

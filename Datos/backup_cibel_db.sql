@@ -150,6 +150,59 @@ INSERT INTO `tipo` VALUES (1,'Ordenadores','Computers'),(2,'Smartphones','Smartp
 UNLOCK TABLES;
 
 --
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuario` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_863n1y3x0jalatoir4325ehal` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'Alina','$2a$10$5388gU/xynszmYX4ax9CYu3/EU9cHxuv8zDGhlN1vQ2y/ju8H1/.C','alinnasb');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario_x_activo`
+--
+
+DROP TABLE IF EXISTS `usuario_x_activo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuario_x_activo` (
+  `fk_usuario` bigint NOT NULL,
+  `fk_activo` bigint NOT NULL,
+  KEY `FK5rdubr7026yim3eefhwoip7yy` (`fk_activo`),
+  KEY `FKrfqf2qv66v322fowuk98114yf` (`fk_usuario`),
+  CONSTRAINT `FK5rdubr7026yim3eefhwoip7yy` FOREIGN KEY (`fk_activo`) REFERENCES `activo` (`id`),
+  CONSTRAINT `FKrfqf2qv66v322fowuk98114yf` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario_x_activo`
+--
+
+LOCK TABLES `usuario_x_activo` WRITE;
+/*!40000 ALTER TABLE `usuario_x_activo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuario_x_activo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `vulnerabilidad`
 --
 
@@ -214,4 +267,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-18 12:57:11
+-- Dump completed on 2024-06-21 12:38:39

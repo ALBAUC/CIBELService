@@ -1,6 +1,6 @@
 package es.unican.CIBEL.domain;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 @Entity
 public class VulnerabilidadApp extends Vulnerabilidad {

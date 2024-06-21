@@ -1,9 +1,12 @@
 package es.unican.CIBEL.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.unican.CIBEL.domain.Dispositivo;
 import es.unican.CIBEL.domain.Tipo;
+import es.unican.CIBEL.domain.Usuario;
 import es.unican.CIBEL.domain.Vulnerabilidad;
 import es.unican.CIBEL.service.DispositivoService;
 
@@ -48,6 +52,17 @@ public class DispositivoController {
 	@GetMapping("/tipos")
 	public List<Tipo> getTiposDispositivos() {
 		return dispositivoService.getTiposDispositivos();
+	}
+	
+	@GetMapping("/me")
+	public List<Dispositivo> getAuthUserDevices() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Usuario currentUser = (Usuario) authentication.getPrincipal();
+		
+		return currentUser.getActivos().stream()
+                .filter(activo -> activo instanceof Dispositivo)
+                .map(activo -> (Dispositivo) activo)
+                .collect(Collectors.toList());
 	}
 	
 }
