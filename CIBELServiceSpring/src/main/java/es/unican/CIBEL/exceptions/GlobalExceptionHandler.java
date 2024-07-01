@@ -61,11 +61,6 @@ public class GlobalExceptionHandler {
         	errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
         	errorDetail.setProperty("description", "The compact string does not reflect a Claims JWS");
         }
-        
-        if (exception instanceof AssetNotFoundException) {
-            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(404), exception.getMessage());
-            errorDetail.setProperty("description", "The device was not found");
-        }
 
         if (errorDetail == null) {
         	exception.printStackTrace();

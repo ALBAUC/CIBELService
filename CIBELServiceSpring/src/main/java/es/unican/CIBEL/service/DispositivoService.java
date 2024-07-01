@@ -4,7 +4,6 @@ import es.unican.CIBEL.domain.Dispositivo;
 import es.unican.CIBEL.domain.Tipo;
 import es.unican.CIBEL.domain.Usuario;
 import es.unican.CIBEL.domain.Vulnerabilidad;
-import es.unican.CIBEL.exceptions.AssetNotFoundException;
 import es.unican.CIBEL.repository.DispositivoRepository;
 import es.unican.CIBEL.repository.UsuarioRepository;
 
@@ -43,24 +42,23 @@ public class DispositivoService {
 	}
 
 	public Usuario addDeviceToUser(Usuario usuario, Long dispositivoId) {
-		if (dispositivoId != null) {
-			Dispositivo actualDevice = getDispositivoById(dispositivoId);
-			if (actualDevice != null) {
-				usuario.getActivos().add(actualDevice);
-				usuarioRepository.save(usuario);
-			} else {
-				throw new AssetNotFoundException(dispositivoId);
-			}
-
-		} else {
-			throw new IllegalArgumentException("Device ID cannot be null");
+		Usuario result = null;
+		Dispositivo actualDevice = getDispositivoById(dispositivoId);
+		if (actualDevice != null) {
+			usuario.getActivos().add(actualDevice);
+			usuarioRepository.save(usuario);
+			result = usuario;
 		}
-		
-		return usuario;
+		return result;
 	}
 
-	public void removeDeviceFromUser(Usuario usuario, Long deviceId) {
-		usuario.getActivos().removeIf(activo -> activo.getId().equals(deviceId) && activo instanceof Dispositivo);
-		usuarioRepository.save(usuario);
+	public Usuario removeDeviceFromUser(Usuario usuario, Long deviceId) {
+	    boolean removed = usuario.getActivos().removeIf(activo -> activo.getId().equals(deviceId) && activo instanceof Dispositivo);
+	    if (removed) {
+	        usuarioRepository.save(usuario);
+	        return usuario;
+	    } else {
+	        return null;
+	    }
 	}
 }

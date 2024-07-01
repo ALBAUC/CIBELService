@@ -29,7 +29,7 @@ GET /me/apps: Obtener las apps del usuario autenticado
 PUT /me/apps/{id}: Añadir una app a la lista del usuario autenticado
 DELETE /me/apps/{id}: Eliminar una app de la lista del usuario autenticado
 
-Una vez desplegado el servicio, se puede encontrar la documentación en http://localhost:8080/swagger-ui.html#/
+Una vez desplegado el servicio, se puede encontrar la documentación en http://localhost:8080/swagger-ui/index.html
 
 **********************************************************************************
 Software necesario:

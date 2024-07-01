@@ -10,7 +10,6 @@ import es.unican.CIBEL.domain.Aplicacion;
 import es.unican.CIBEL.domain.Tipo;
 import es.unican.CIBEL.domain.Usuario;
 import es.unican.CIBEL.domain.Vulnerabilidad;
-import es.unican.CIBEL.exceptions.AssetNotFoundException;
 import es.unican.CIBEL.repository.AppRepository;
 import es.unican.CIBEL.repository.UsuarioRepository;
 
@@ -43,25 +42,23 @@ public class AppService {
 	}
 
 	public Usuario addAppToUser(Usuario usuario, Long appId) {
-		if (appId != null) {
-			Aplicacion actualApp = getAppById(appId);
-			if (actualApp != null) {
-				usuario.getActivos().add(actualApp);
-				usuarioRepository.save(usuario);
-			} else {
-				throw new AssetNotFoundException(appId);
-			}
-
-		} else {
-			throw new IllegalArgumentException("App ID cannot be null");
+		Usuario result = null;
+		Aplicacion actualApp = getAppById(appId);
+		if (actualApp != null) {
+			usuario.getActivos().add(actualApp);
+			usuarioRepository.save(usuario);
+			result = usuario;
 		}
-
-		return usuario;
+		return result;
 	}
 
-	public void removeAppFromUser(Usuario user, Long appId) {
-		user.getActivos().removeIf(activo -> activo.getId().equals(appId) && activo instanceof Aplicacion);
-		usuarioRepository.save(user);
+	public Usuario removeAppFromUser(Usuario user, Long appId) {
+	    boolean removed = user.getActivos().removeIf(activo -> activo.getId().equals(appId) && activo instanceof Aplicacion);
+	    if (removed) {
+	        usuarioRepository.save(user);
+	        return user;
+	    } else {
+	        return null;
+	    }
 	}
-
 }

@@ -56,8 +56,16 @@ public class UserController {
     public ResponseEntity<Usuario> addDeviceToAuthUser(@PathVariable Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario currentUser = (Usuario) authentication.getPrincipal();
+        
+        ResponseEntity<Usuario> result;
+        Usuario uMod = dispositivoService.addDeviceToUser(currentUser, id);
+        if (uMod == null) {
+        	result = ResponseEntity.notFound().build();
+        } else {
+        	result = ResponseEntity.ok(uMod);
+        }
 
-        return ResponseEntity.ok(dispositivoService.addDeviceToUser(currentUser, id));
+        return result;
     }
     
     @PutMapping("/apps/{id}")
@@ -65,23 +73,47 @@ public class UserController {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Usuario currentUser = (Usuario) authentication.getPrincipal();
 		
-		return ResponseEntity.ok(appService.addAppToUser(currentUser, id));
+		ResponseEntity<Usuario> result;
+        Usuario uMod = appService.addAppToUser(currentUser, id);
+        if (uMod == null) {
+        	result = ResponseEntity.notFound().build();
+        } else {
+        	result = ResponseEntity.ok(uMod);
+        }
+
+        return result;
     }
     
     @DeleteMapping("/dispositivos/{id}")
-    public ResponseEntity<Void> removeDeviceFromAuthUser(@PathVariable Long id) {
+    public ResponseEntity<Usuario> removeDeviceFromAuthUser(@PathVariable Long id) {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Usuario currentUser = (Usuario) authentication.getPrincipal();
-		dispositivoService.removeDeviceFromUser(currentUser, id);
-		return ResponseEntity.noContent().build();
+		
+		ResponseEntity<Usuario> result;
+		Usuario uMod = dispositivoService.removeDeviceFromUser(currentUser, id);
+		if (uMod == null) {
+			result = ResponseEntity.notFound().build();
+		} else {
+			result = ResponseEntity.ok(uMod);
+		}
+		
+		return result;
     }
     
     @DeleteMapping("/apps/{id}")
-    public ResponseEntity<Void> removeAppFromAuthUser(@PathVariable Long id) {
+    public ResponseEntity<Usuario> removeAppFromAuthUser(@PathVariable Long id) {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Usuario currentUser = (Usuario) authentication.getPrincipal();
-		appService.removeAppFromUser(currentUser, id);
-		return ResponseEntity.noContent().build();
+		
+		ResponseEntity<Usuario> result;
+        Usuario uMod = appService.removeAppFromUser(currentUser, id);
+        if (uMod == null) {
+        	result = ResponseEntity.notFound().build();
+        } else {
+        	result = ResponseEntity.ok(uMod);
+        }
+
+        return result;
     }
 
 }
