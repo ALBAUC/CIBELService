@@ -68,4 +68,9 @@ public class Dispositivo extends Activo {
 		this.ecoPuntuacion = ecoPuntuacion;
 	}
 
+	@Override
+	public String toString() {
+		return "Dispositivo [id=" + super.getId() + ", nombre=" + super.getNombre() + ", icono=" + super.getIcono() + "]";
+	}
+
 }

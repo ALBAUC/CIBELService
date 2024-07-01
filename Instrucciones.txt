@@ -8,14 +8,26 @@ Secciones:
 **********************************************************************************
 Endpoints:
 
-/dispositivos
-/dispositivos/{id}
-/dispositivos/vulnerabilidades
-/dispositivos/tipos
-/apps
-/apps/{id}
-/apps/vulnerabilidades
-/apps/tipos
+GET /dispositivos: Obtener todos los dispositivos
+GET /dispositivos/{id}: Obtener un dispositivo concreto
+GET /dispositivos/vulnerabilidades: Obtener todas las vulnerabilidades de todos los dispositivos
+GET /dispositivos/tipos: Obtener todas las categorías de dispositivos
+
+GET /apps: Obtener todas las apps
+GET /apps/{id}: Obtener una app concreta
+GET /apps/vulnerabilidades: Obtener todas las vulnerabilidades de todas las apps
+GET /apps/tipos: Obtener todas las categorías de apps
+
+POST /auth/login: Autenticar un usuario
+POST /auth/signup: Crear un usuario
+
+GET /me/dispositivos: Obtener los dispositivos del usuario autenticado
+PUT /me/dispositivos/{id}: Añadir un dispositivo a la lista del usuario autenticado
+DELETE /me/dispositivos/{id}: Eliminar un dispositivo de la lista del usuario autenticado
+
+GET /me/apps: Obtener las apps del usuario autenticado
+PUT /me/apps/{id}: Añadir una app a la lista del usuario autenticado
+DELETE /me/apps/{id}: Eliminar una app de la lista del usuario autenticado
 
 Una vez desplegado el servicio, se puede encontrar la documentación en http://localhost:8080/swagger-ui.html#/
 

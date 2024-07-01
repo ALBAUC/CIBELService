@@ -53,19 +53,24 @@ public class GlobalExceptionHandler {
         }
         
         if (exception instanceof IllegalArgumentException) {
-        	errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
-        	errorDetail.setProperty("description", "Token is null or empty or only whitespace");
+        	errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(400), exception.getMessage());
+        	errorDetail.setProperty("description", "Invalid argument supplied");
         }
         
         if (exception instanceof UnsupportedJwtException) {
         	errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
         	errorDetail.setProperty("description", "The compact string does not reflect a Claims JWS");
         }
+        
+        if (exception instanceof AssetNotFoundException) {
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(404), exception.getMessage());
+            errorDetail.setProperty("description", "The device was not found");
+        }
 
         if (errorDetail == null) {
         	exception.printStackTrace();
             errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(500), exception.getMessage());
-            errorDetail.setProperty("description", "Unknown internal server error.");
+            errorDetail.setProperty("description", "Unknown internal server error");
         }
 
         return errorDetail;

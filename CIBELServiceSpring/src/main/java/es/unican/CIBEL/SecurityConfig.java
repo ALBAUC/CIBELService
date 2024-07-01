@@ -31,6 +31,8 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/apps/**").permitAll()
+                .requestMatchers("/dispositivos/**").permitAll()
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -42,18 +44,17 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+	    CorsConfiguration configuration = new CorsConfiguration();
+	    configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://alba.unican.es"));
+	    configuration.setAllowedMethods(List.of("GET", "POST", "DELETE"));
+	    configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://alba.unican.es"));
-        configuration.setAllowedMethods(List.of("GET","POST"));
-        configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", configuration);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    return source;
+	}
 
-        source.registerCorsConfiguration("/**",configuration);
-
-        return source;
-    }
 }
