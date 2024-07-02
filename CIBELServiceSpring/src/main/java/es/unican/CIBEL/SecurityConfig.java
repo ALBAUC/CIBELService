@@ -20,15 +20,17 @@ import es.unican.CIBEL.util.JwtRequestFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	@Autowired
-	private AuthenticationProvider authenticationProvider;
-	
-	@Autowired
-	private JwtRequestFilter jwtRequestFilter;
-	
-	@Bean
+
+    @Autowired
+    private AuthenticationProvider authenticationProvider;
+
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .cors().and()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/apps/**").permitAll()
@@ -44,17 +46,18 @@ public class SecurityConfig {
         return http.build();
     }
 
-	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
-	    CorsConfiguration configuration = new CorsConfiguration();
-	    configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://alba.unican.es"));
-	    configuration.setAllowedMethods(List.of("GET", "POST", "DELETE"));
-	    configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://alba.unican.es"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "ngrok-skip-browser-warning"));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
 
-	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    source.registerCorsConfiguration("/**", configuration);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
 
-	    return source;
-	}
-
+        return source;
+    }
 }
