@@ -30,6 +30,13 @@ public class UserController {
 	@Autowired
 	private AppService appService;
 	
+	@GetMapping
+	public ResponseEntity<Usuario> getAuthUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Usuario currentUser = (Usuario) authentication.getPrincipal();
+		return ResponseEntity.ok(currentUser);
+	}
+	
 	@GetMapping("/dispositivos")
 	public List<Dispositivo> getAuthUserDevices() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

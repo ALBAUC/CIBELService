@@ -25,6 +25,9 @@ public class Usuario implements UserDetails {
 
     @Column(nullable = false)
     private String password;
+    
+    @Column(unique = true, nullable = false)
+    private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_x_activo",
@@ -34,10 +37,11 @@ public class Usuario implements UserDetails {
 
     public Usuario() {}
 
-    public Usuario(String name, String username, String password) {
+    public Usuario(String name, String username, String password, String email) {
     	this.name = name;
         this.username = username;
         this.password = password;
+        this.email = email;
         this.activos = new LinkedList<Activo>();
     }
 
@@ -79,6 +83,14 @@ public class Usuario implements UserDetails {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override

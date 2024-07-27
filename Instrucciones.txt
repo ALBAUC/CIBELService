@@ -21,6 +21,9 @@ GET /apps/tipos: Obtener todas las categorías de apps
 POST /auth/login: Autenticar un usuario
 POST /auth/signup: Crear un usuario
 
+Requiere autenticación:
+GET /me: Obtener el usuario autenticado
+
 GET /me/dispositivos: Obtener los dispositivos del usuario autenticado
 PUT /me/dispositivos/{id}: Añadir un dispositivo a la lista del usuario autenticado
 DELETE /me/dispositivos/{id}: Eliminar un dispositivo de la lista del usuario autenticado

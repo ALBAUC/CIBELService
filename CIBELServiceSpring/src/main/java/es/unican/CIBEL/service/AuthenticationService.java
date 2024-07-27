@@ -28,7 +28,7 @@ public class AuthenticationService {
             throw new IllegalArgumentException("Username already exists");
         }
         String encodedPassword = passwordEncoder.encode(input.getPassword());
-        Usuario usuario = new Usuario(input.getName(), input.getUsername(), encodedPassword);
+        Usuario usuario = new Usuario(input.getName(), input.getUsername(), encodedPassword, input.getEmail());
         return usuarioRepository.save(usuario);
     }
 
