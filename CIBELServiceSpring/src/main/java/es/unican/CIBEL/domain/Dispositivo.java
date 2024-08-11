@@ -1,5 +1,7 @@
 package es.unican.CIBEL.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 
 @Entity
@@ -67,6 +69,23 @@ public class Dispositivo extends Activo {
 	public void setEcoPuntuacion(int ecoPuntuacion) {
 		this.ecoPuntuacion = ecoPuntuacion;
 	}
+	
+	public int calcularPuntuacionSeguridad() {
+        // Considero un límite de 400 como la máxima gravedad posible
+        int puntuacionSeguridad = (int) Math.round(100 - (calcularTotalGravedad() / 4));
+        return Math.max(0, Math.min(100, puntuacionSeguridad));
+    }
+
+    public double calcularTotalGravedad() {
+        List<Vulnerabilidad> vulnerabilidades = getVulnerabilidades();
+        int totalGravedad = 0;
+
+        for (Vulnerabilidad v : vulnerabilidades) {
+            totalGravedad += v.getBaseScore() * 10; // baseScore de 0 a 100
+        }
+
+        return totalGravedad;
+    }
 
 	@Override
 	public String toString() {

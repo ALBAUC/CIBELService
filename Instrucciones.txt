@@ -27,6 +27,8 @@ GET /me: Obtener el usuario autenticado
 GET /me/dispositivos: Obtener los dispositivos del usuario autenticado
 PUT /me/dispositivos/{id}: Añadir un dispositivo a la lista del usuario autenticado
 DELETE /me/dispositivos/{id}: Eliminar un dispositivo de la lista del usuario autenticado
+GET /me/dispositivos/ecoscore: Obtener puntuación de sostenibilidad
+GET /me/dispositivos/securityscore: Obtener puntuación de seguridad
 
 GET /me/apps: Obtener las apps del usuario autenticado
 PUT /me/apps/{id}: Añadir una app a la lista del usuario autenticado

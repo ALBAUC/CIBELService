@@ -37,6 +37,34 @@ public class UserController {
 		return ResponseEntity.ok(currentUser);
 	}
 	
+	@GetMapping("/dispositivos/ecoscore")
+	public int getEcoScore() {
+		List<Dispositivo> dispositivos = getAuthUserDevices();
+		int result = 100;
+		if (dispositivos.size() != 0) {
+			double s = 0;
+			for (Dispositivo d : dispositivos) {
+				s += d.getEcoPuntuacion();
+			}
+			result = (int) Math.round(s / dispositivos.size());
+		}
+		return result;
+	}
+	
+	@GetMapping("/dispositivos/securityscore")
+	public int getSecurityScore() {
+		List<Dispositivo> dispositivos = getAuthUserDevices();
+		int result = 100;
+		if (dispositivos.size() != 0) {
+			double s = 0;
+			for (Dispositivo d : dispositivos) {
+				s += d.calcularPuntuacionSeguridad();
+			}
+			result = (int) Math.round(s / dispositivos.size());
+		}
+		return result;
+	}
+	
 	@GetMapping("/dispositivos")
 	public List<Dispositivo> getAuthUserDevices() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
