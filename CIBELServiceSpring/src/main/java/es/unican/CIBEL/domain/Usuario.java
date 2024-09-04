@@ -20,9 +20,6 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String name;
 
-    @Column(unique = true, nullable = false)
-    private String username;
-
     @Column(nullable = false)
     private String password;
     
@@ -37,11 +34,10 @@ public class Usuario implements UserDetails {
 
     public Usuario() {}
 
-    public Usuario(String name, String username, String password, String email) {
+    public Usuario(String name, String email, String password) {
     	this.name = name;
-        this.username = username;
-        this.password = password;
         this.email = email;
+        this.password = password;
         this.activos = new LinkedList<Activo>();
     }
 
@@ -51,14 +47,6 @@ public class Usuario implements UserDetails {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -116,5 +104,10 @@ public class Usuario implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
 	}
 }

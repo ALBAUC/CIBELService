@@ -19,12 +19,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class ApplicationConfig {
     
-	@Autowired
+    @Autowired
     private UsuarioRepository usuarioRepository;
     
     @Bean
     UserDetailsService userDetailsService() {
-        return username -> usuarioRepository.findByUsername(username)
+        return email -> usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 

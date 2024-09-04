@@ -24,23 +24,24 @@ public class AuthenticationService {
     private AuthenticationManager authenticationManager;
 
     public Usuario register(RegisterUserDto input) {
-    	if (usuarioRepository.findByUsername(input.getUsername()).isPresent()) {
-            throw new IllegalArgumentException("Username already exists");
+        if (usuarioRepository.findByEmail(input.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already exists");
         }
+        
         String encodedPassword = passwordEncoder.encode(input.getPassword());
-        Usuario usuario = new Usuario(input.getName(), input.getUsername(), encodedPassword, input.getEmail());
+        Usuario usuario = new Usuario(input.getName(), input.getEmail(), encodedPassword);
         return usuarioRepository.save(usuario);
     }
 
     public Usuario authenticate(LoginUserDto input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        input.getUsername(),
+                        input.getEmail(),
                         input.getPassword()
                 )
         );
 
-        return usuarioRepository.findByUsername(input.getUsername())
+        return usuarioRepository.findByEmail(input.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
