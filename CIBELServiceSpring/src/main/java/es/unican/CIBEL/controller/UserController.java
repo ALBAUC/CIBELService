@@ -1,34 +1,28 @@
 package es.unican.CIBEL.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.unican.CIBEL.domain.Aplicacion;
-import es.unican.CIBEL.domain.Dispositivo;
 import es.unican.CIBEL.domain.Usuario;
-import es.unican.CIBEL.service.AppService;
-import es.unican.CIBEL.service.DispositivoService;
+import es.unican.CIBEL.service.UserService;
 
 @RestController
 @RequestMapping("me")
 public class UserController {
 	
 	@Autowired
-	private DispositivoService dispositivoService;
-	
-	@Autowired
-	private AppService appService;
+	private UserService userService;
 	
 	@GetMapping
 	public ResponseEntity<Usuario> getAuthUser() {
@@ -37,118 +31,54 @@ public class UserController {
 		return ResponseEntity.ok(currentUser);
 	}
 	
-	@GetMapping("/dispositivos/ecoscore")
-	public int getEcoScore() {
-		List<Dispositivo> dispositivos = getAuthUserDevices();
-		int result = 100;
-		if (dispositivos.size() != 0) {
-			double s = 0;
-			for (Dispositivo d : dispositivos) {
-				s += d.getEcoPuntuacion();
-			}
-			result = (int) Math.round(s / dispositivos.size());
-		}
-		return result;
-	}
-	
-	@GetMapping("/dispositivos/securityscore")
-	public int getSecurityScore() {
-		List<Dispositivo> dispositivos = getAuthUserDevices();
-		int result = 100;
-		if (dispositivos.size() != 0) {
-			double s = 0;
-			for (Dispositivo d : dispositivos) {
-				s += d.calcularPuntuacionSeguridad();
-			}
-			result = (int) Math.round(s / dispositivos.size());
-		}
-		return result;
-	}
-	
-	@GetMapping("/dispositivos")
-	public List<Dispositivo> getAuthUserDevices() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Usuario currentUser = (Usuario) authentication.getPrincipal();
-		
-		return currentUser.getActivos().stream()
-                .filter(activo -> activo instanceof Dispositivo)
-                .map(activo -> (Dispositivo) activo)
-                .collect(Collectors.toList());
-	}
-	
-    @GetMapping("/apps")
-	public List<Aplicacion> getAuthUserApps() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Usuario currentUser = (Usuario) authentication.getPrincipal();
-		
-		return currentUser.getActivos().stream()
-                .filter(activo -> activo instanceof Aplicacion)
-                .map(activo -> (Aplicacion) activo)
-                .collect(Collectors.toList());
-	}
-    
-    @PutMapping("/dispositivos/{id}")
-    public ResponseEntity<Usuario> addDeviceToAuthUser(@PathVariable Long id) {
+	@PutMapping("/name")
+    public ResponseEntity<Usuario> updateUserName(@RequestBody Map<String, String> request) {
+        String newName = request.get("newName");
+        if (newName == null || newName.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(null); // Si el nuevo nombre es inválido
+        }
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario currentUser = (Usuario) authentication.getPrincipal();
-        
-        ResponseEntity<Usuario> result;
-        Usuario uMod = dispositivoService.addDeviceToUser(currentUser, id);
-        if (uMod == null) {
-        	result = ResponseEntity.notFound().build();
-        } else {
-        	result = ResponseEntity.ok(uMod);
+
+        currentUser.setName(newName);
+        Usuario updatedUser = userService.save(currentUser); // Actualizar en la BD
+
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @PutMapping("/password")
+    public ResponseEntity<String> updatePassword(@RequestBody Map<String, String> request) {
+        String oldPassword = request.get("oldPassword");
+        String newPassword = request.get("newPassword");
+
+        if (oldPassword == null || newPassword == null || newPassword.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid password input");
         }
 
-        return result;
-    }
-    
-    @PutMapping("/apps/{id}")
-    public ResponseEntity<Usuario> addAppToAuthUser(@PathVariable Long id) {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Usuario currentUser = (Usuario) authentication.getPrincipal();
-		
-		ResponseEntity<Usuario> result;
-        Usuario uMod = appService.addAppToUser(currentUser, id);
-        if (uMod == null) {
-        	result = ResponseEntity.notFound().build();
-        } else {
-        	result = ResponseEntity.ok(uMod);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario currentUser = (Usuario) authentication.getPrincipal();
+
+        // Verificar la contraseña actual
+        if (!userService.checkPassword(currentUser, oldPassword)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect old password");
         }
 
-        return result;
-    }
-    
-    @DeleteMapping("/dispositivos/{id}")
-    public ResponseEntity<Usuario> removeDeviceFromAuthUser(@PathVariable Long id) {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Usuario currentUser = (Usuario) authentication.getPrincipal();
-		
-		ResponseEntity<Usuario> result;
-		Usuario uMod = dispositivoService.removeDeviceFromUser(currentUser, id);
-		if (uMod == null) {
-			result = ResponseEntity.notFound().build();
-		} else {
-			result = ResponseEntity.ok(uMod);
-		}
-		
-		return result;
-    }
-    
-    @DeleteMapping("/apps/{id}")
-    public ResponseEntity<Usuario> removeAppFromAuthUser(@PathVariable Long id) {
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Usuario currentUser = (Usuario) authentication.getPrincipal();
-		
-		ResponseEntity<Usuario> result;
-        Usuario uMod = appService.removeAppFromUser(currentUser, id);
-        if (uMod == null) {
-        	result = ResponseEntity.notFound().build();
-        } else {
-        	result = ResponseEntity.ok(uMod);
-        }
+        // Actualizar la contraseña
+        currentUser.setPassword(userService.encodePassword(newPassword)); // Encriptar nueva contraseña
+        userService.save(currentUser);
 
-        return result;
+        return ResponseEntity.ok("Password updated successfully");
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario currentUser = (Usuario) authentication.getPrincipal();
+
+        userService.delete(currentUser); // Eliminar el usuario de la BD
+
+        return ResponseEntity.ok("User deleted successfully");
     }
 
 }

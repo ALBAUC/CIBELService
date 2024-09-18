@@ -23,6 +23,9 @@ POST /auth/signup: Crear un usuario
 
 Requiere autenticación:
 GET /me: Obtener el usuario autenticado
+PUT /me/name: Modificar el nombre del usuario autenticado
+PUT /me/password: Modificar la contraseña del usuario autenticado
+DELETE /me: Borrar la cuenta del usuario autenticado
 
 GET /me/dispositivos: Obtener los dispositivos del usuario autenticado
 PUT /me/dispositivos/{id}: Añadir un dispositivo a la lista del usuario autenticado
