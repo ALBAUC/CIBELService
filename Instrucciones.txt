@@ -8,7 +8,7 @@ Secciones:
 **********************************************************************************
 Endpoints:
 
-GET /dispositivos: Obtener todos los dispositivos
+GET /dispositivos: Obtener todos los dispositivos (Query param: tipo)
 GET /dispositivos/{id}: Obtener un dispositivo concreto
 GET /dispositivos/vulnerabilidades: Obtener todas las vulnerabilidades de todos los dispositivos
 GET /dispositivos/tipos: Obtener todas las categorías de dispositivos

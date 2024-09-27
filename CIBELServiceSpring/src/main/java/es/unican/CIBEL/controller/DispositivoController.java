@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.unican.CIBEL.domain.Dispositivo;
@@ -22,7 +23,12 @@ public class DispositivoController {
 	private DispositivoService dispositivoService;
 	
 	@GetMapping
-    public List<Dispositivo> getAllDispositivos() {
+	public List<Dispositivo> getAllDispositivos(@RequestParam(required = false) String tipo) {
+        // Si 'tipo' es proporcionado, filtrar los dispositivos
+        if (tipo != null) {
+            return dispositivoService.getDispositivosByTipo(tipo);
+        }
+        // Si no se proporciona, devolver todos los dispositivos
         return dispositivoService.dispositivos();
     }
 	

@@ -61,4 +61,8 @@ public class DispositivoService {
 	        return null;
 	    }
 	}
+
+	public List<Dispositivo> getDispositivosByTipo(String tipo) {
+		return dispositivoRepository.findByTipoNombre(tipo);
+	}
 }
