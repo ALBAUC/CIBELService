@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 9.0.1, for macos13.6 (arm64)
+-- MySQL dump 10.13  Distrib 8.1.0, for macos13 (x86_64)
 --
 -- Host: localhost    Database: cibel_db
 -- ------------------------------------------------------
@@ -163,7 +163,7 @@ CREATE TABLE `usuario` (
   `email` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_5171l57faosmj8myawaucatdw` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (4,'Alina','$2a$10$5LBsFSbJZJwT2QQul7k99eVpE.v5md2srAskwFI7Tz5/AZwOVVozm','alinasolonaru@hotmail.com'),(5,'Moises','$2a$10$vSqtXSMFhxskfprBoXFah.Mm7/X394VZJkTp5s.MvH9ulIIOwYBB6','moisesflclase@gmail.com');
+INSERT INTO `usuario` VALUES (4,'Alina','$2a$10$QlhaZFdvWW5UdRCwkCuloO1wuXzn3OZeTq1EDdGnB8Dc7Ay4UaSnO','alinasolonaru@hotmail.com');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,7 +199,7 @@ CREATE TABLE `usuario_x_activo` (
 
 LOCK TABLES `usuario_x_activo` WRITE;
 /*!40000 ALTER TABLE `usuario_x_activo` DISABLE KEYS */;
-INSERT INTO `usuario_x_activo` VALUES (4,2),(4,31),(4,87),(4,32),(4,30),(4,85),(4,4),(4,101);
+INSERT INTO `usuario_x_activo` VALUES (4,87),(4,32),(4,30),(4,101),(4,99),(4,98),(4,100),(4,4);
 /*!40000 ALTER TABLE `usuario_x_activo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,4 +268,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-07 11:44:06
+-- Dump completed on 2024-10-06 12:54:14
