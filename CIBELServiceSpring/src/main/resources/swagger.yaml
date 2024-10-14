@@ -1,0 +1,743 @@
+openapi: 3.0.1
+info:
+  title: CIBEL Service
+  description: >-
+    Service providing information about vulnerabilities in Android applications,
+    as well as vulnerabilities and sustainability of IoT devices.
+  contact:
+    name: Alina Solonaru Botnari
+    email: solonarua@unican.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/
+    description: Local Environment
+  - url: https://thorough-healthy-escargot.ngrok-free.app/
+    description: Development Environment
+tags:
+  - name: Applications
+    description: Operations related to Android applications
+  - name: Authentication
+    description: Endpoints for user authentication and registration
+  - name: User Management
+    description: Endpoints for managing the authenticated user
+  - name: Devices
+    description: Operations related to devices
+  - name: User apps
+    description: Operations related to user apps
+  - name: User devices
+    description: Operations related to user devices
+paths:
+  /me/password:
+    put:
+      tags:
+        - User Management
+      summary: Update user password
+      description: Updates the password of the authenticated user.
+      operationId: updatePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordDto'
+        required: true
+      responses:
+        '200':
+          description: Password updated successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Password updated successfully
+        '400':
+          description: Invalid password input
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Invalid password input
+        '401':
+          description: Incorrect old password
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Incorrect old password
+        '403':
+          description: User not authenticated
+      security:
+        - Bearer Token: []
+  /me/name:
+    put:
+      tags:
+        - User Management
+      summary: Update user name
+      description: Updates the name of the authenticated user.
+      operationId: updateUserName
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNameDto'
+        required: true
+      responses:
+        '200':
+          description: User name updated successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  id: 1
+                  name: John Doe
+                  password: $2a$10$hvTuh0Hx1HNUO0R7A8PbkeNhGN52ncaWvyyxZzYljy2uj9HzpCAPG
+                  email: john.doe@example.com
+                  activos: []
+        '400':
+          description: Invalid name input
+        '403':
+          description: User not authenticated
+      security:
+        - Bearer Token: []
+  /me/dispositivos/{id}:
+    put:
+      tags:
+        - User devices
+      summary: Add device to authenticated user
+      description: Adds a device to the authenticated user's list of devices.
+      operationId: addDeviceToAuthUser
+      parameters:
+        - name: id
+          in: path
+          description: ID of the device to add
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        '200':
+          description: Device added successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  id: 1
+                  name: John Doe
+                  password: $2a$10$hvTuh0Hx1HNUO0R7A8PbkeNhGN52ncaWvyyxZzYljy2uj9HzpCAPG
+                  email: john.doe@example.com
+                  activos: []
+        '404':
+          description: Device not found
+      security:
+        - Bearer Token: []
+    delete:
+      tags:
+        - User devices
+      summary: Remove device from authenticated user
+      description: Removes a device from the authenticated user's list of devices.
+      operationId: removeDeviceFromAuthUser
+      parameters:
+        - name: id
+          in: path
+          description: ID of the device to remove
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        '200':
+          description: Device removed successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  id: 1
+                  name: John Doe
+                  password: $2a$10$hvTuh0Hx1HNUO0R7A8PbkeNhGN52ncaWvyyxZzYljy2uj9HzpCAPG
+                  email: john.doe@example.com
+                  activos: []
+        '404':
+          description: Device not found
+      security:
+        - Bearer Token: []
+  /me/apps/{id}:
+    put:
+      tags:
+        - User apps
+      summary: Add application to authenticated user
+      description: Adds an application to the authenticated user's list of applications.
+      operationId: addAppToAuthUser
+      parameters:
+        - name: id
+          in: path
+          description: ID of the application to add
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 183
+      responses:
+        '200':
+          description: Application added successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  id: 1
+                  name: John Doe
+                  password: $2a$10$hvTuh0Hx1HNUO0R7A8PbkeNhGN52ncaWvyyxZzYljy2uj9HzpCAPG
+                  email: john.doe@example.com
+                  activos: []
+        '404':
+          description: Application not found
+      security:
+        - Bearer Token: []
+    delete:
+      tags:
+        - User apps
+      summary: Remove application from authenticated user
+      description: >-
+        Removes an application from the authenticated user's list of
+        applications.
+      operationId: removeAppFromAuthUser
+      parameters:
+        - name: id
+          in: path
+          description: ID of the application to remove
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 183
+      responses:
+        '200':
+          description: Application removed successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  id: 1
+                  name: John Doe
+                  password: $2a$10$hvTuh0Hx1HNUO0R7A8PbkeNhGN52ncaWvyyxZzYljy2uj9HzpCAPG
+                  email: john.doe@example.com
+                  activos: []
+        '404':
+          description: Application not found
+      security:
+        - Bearer Token: []
+  /auth/signup:
+    post:
+      tags:
+        - Authentication
+      summary: User registration
+      description: Registers a new user with the provided details.
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserDto'
+        required: true
+      responses:
+        '200':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  id: 10
+                  name: Test
+                  password: $2a$10$mm/tmq7BqdRUn9oxX0cbOut2KNGsZUVDV3kk7hG7cykeUQuTZY7IW
+                  email: test@hotmail.com
+                  activos: []
+                  enabled: true
+                  accountNonExpired: true
+                  accountNonLocked: true
+                  credentialsNonExpired: true
+                  username: test@hotmail.com
+                  authorities: []
+        '400':
+          description: Invalid registration details
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      description: Authenticates a user and returns a JWT token.
+      operationId: authenticate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserDto'
+        required: true
+      responses:
+        '200':
+          description: User authenticated successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  token: >-
+                    eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGluYXNvbG9uYXJ1QGhvdG1haWwuY29tIiwiaWF0IjoxNzI4OTI4Nzc1LCJleHAiOjE3Mjg5NjQ3NzV9.gJ2eiD3W1OEDMhEPYgZNcQ5bG5yXMcQMQWGrR2o3SMI
+                  expiresIn: 36000000
+        '401':
+          description: Invalid username or password
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  type: about:blank
+                  title: Unauthorized
+                  status: 401
+                  detail: Bad credentials
+                  instance: /auth/login
+                  description: The username or password is incorrect
+  /me:
+    get:
+      tags:
+        - User Management
+      summary: Get authenticated user details
+      description: Retrieves the details of the currently authenticated user.
+      operationId: getAuthUser
+      responses:
+        '200':
+          description: User details retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  id: 1
+                  name: John Doe
+                  password: $2a$10$hvTuh0Hx1HNUO0R7A8PbkeNhGN52ncaWvyyxZzYljy2uj9HzpCAPG
+                  email: john.doe@example.com
+                  activos: []
+        '403':
+          description: User not authenticated
+      security:
+        - Bearer Token: []
+    delete:
+      tags:
+        - User Management
+      summary: Delete user account
+      description: Deletes the authenticated user account.
+      operationId: deleteUser
+      responses:
+        '200':
+          description: User deleted successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example: []
+        '403':
+          description: User not authenticated
+      security:
+        - Bearer Token: []
+  /me/dispositivos:
+    get:
+      tags:
+        - User devices
+      summary: Get authenticated user's devices
+      description: Returns a list of devices owned by the authenticated user.
+      operationId: getAuthUserDevices
+      responses:
+        '200':
+          description: >-
+            Successfully retrieves the devices belonging to the authenticated
+            user.
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  - id: 1
+                    nombre: Lenovo ThinkPad T440s
+                    icono: https://m.media-amazon.com/images/I/51ujDlKCobL.jpg
+                    tipo:
+                      id: 1
+                      nombre: Ordenadores
+                      nombre_en: Computers
+                    vulnerabilidades: []
+                    durabilidad: 0
+                    reparabilidad: 0
+                    reciclabilidad: 0
+                    efClimatica: 0
+                    efRecursos: 0
+                    ecoPuntuacion: 0
+      security:
+        - Bearer Token: []
+  /me/dispositivos/securityscore:
+    get:
+      tags:
+        - User devices
+      summary: Get security score of authenticated user
+      description: >-
+        Calculates and returns the security score of the authenticated user
+        based on their devices.
+      operationId: getSecurityScore
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: integer
+                format: int32
+      security:
+        - Bearer Token: []
+  /me/dispositivos/ecoscore:
+    get:
+      tags:
+        - User devices
+      summary: Get eco score of authenticated user
+      description: >-
+        Calculates and returns the eco score of the authenticated user based on
+        their devices.
+      operationId: getEcoScore
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: integer
+                format: int32
+      security:
+        - Bearer Token: []
+  /me/apps:
+    get:
+      tags:
+        - User apps
+      summary: Get authenticated user's applications
+      description: Returns a list of applications owned by the authenticated user.
+      operationId: getAuthUserApps
+      responses:
+        '200':
+          description: Successfully retrieves the apps belonging to the authenticated user.
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  - id: 183
+                    nombre: Instagram
+                    icono: https://i.imgur.com/MNaIwAy.jpg
+                    tipo:
+                      id: 32
+                      nombre: Redes Sociales
+                      nombre_en: Social Networks
+                    vulnerabilidades: []
+      security:
+        - Bearer Token: []
+  /dispositivos:
+    get:
+      tags:
+        - Devices
+      summary: Retrieve all devices
+      description: >-
+        Returns a list of all devices. If a device type is provided, the devices
+        will be filtered by that type.
+      operationId: getAllDispositivos
+      parameters:
+        - name: tipo
+          in: query
+          description: Device type to filter by
+          required: false
+          schema:
+            type: string
+          example: Smartphones
+      responses:
+        '200':
+          description: List of devices retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  - id: 1
+                    nombre: Lenovo ThinkPad T440s
+                    icono: https://m.media-amazon.com/images/I/51ujDlKCobL.jpg
+                    tipo:
+                      id: 1
+                      nombre: Ordenadores
+                      nombre_en: Computers
+                    vulnerabilidades: []
+                    durabilidad: 0
+                    reparabilidad: 0
+                    reciclabilidad: 0
+                    efClimatica: 0
+                    efRecursos: 0
+                    ecoPuntuacion: 0
+  /dispositivos/{id}:
+    get:
+      tags:
+        - Devices
+      summary: Retrieve a device by ID
+      description: Returns the details of a device given its ID
+      operationId: getDispositivoById
+      parameters:
+        - name: id
+          in: path
+          description: Device ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        '200':
+          description: Device retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  id: 1
+                  nombre: Lenovo ThinkPad T440s
+                  icono: https://m.media-amazon.com/images/I/51ujDlKCobL.jpg
+                  tipo:
+                    id: 1
+                    nombre: Ordenadores
+                    nombre_en: Computers
+                  vulnerabilidades: []
+                  durabilidad: 0
+                  reparabilidad: 0
+                  reciclabilidad: 0
+                  efClimatica: 0
+                  efRecursos: 0
+                  ecoPuntuacion: 0
+        '404':
+          description: Device with the specified ID not found
+  /dispositivos/vulnerabilidades:
+    get:
+      tags:
+        - Devices
+      summary: Retrieve device vulnerabilities
+      description: Returns a list of all known vulnerabilities for the devices
+      operationId: getVulnerabilidadesDispositivos
+      responses:
+        '200':
+          description: List of vulnerabilities retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  - idCVE: CVE-2015-7267
+                    descripcion: >-
+                      Las unidades de estado sólido Samsung 850 Pro y PM851 y
+                      las unidades...
+                    descripcion_en: >-
+                      Samsung 850 Pro and PM851 solid-state drives and Seagate
+                      ST500LT015 and ST500LT025 hard disk...
+                    confidentialityImpact: PARTIAL
+                    integrityImpact: NONE
+                    availabilityImpact: NONE
+                    baseScore: 1.9
+                    baseSeverity: LOW
+  /dispositivos/tipos:
+    get:
+      tags:
+        - Devices
+      summary: Retrieve device types
+      description: Returns a list of available device categories
+      operationId: getTiposDispositivos
+      responses:
+        '200':
+          description: List of device categories retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  - id: 1
+                    nombre: Ordenadores
+                    nombre_en: Computers
+                  - id: 2
+                    nombre: Smartphones
+                    nombre_en: Smartphones
+  /apps:
+    get:
+      tags:
+        - Applications
+      summary: Get all applications
+      description: Returns a list of all applications.
+      operationId: getAllAplicaciones
+      responses:
+        '200':
+          description: List of applications retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  - id: 183
+                    nombre: Instagram
+                    icono: https://i.imgur.com/MNaIwAy.jpg
+                    tipo:
+                      id: 32
+                      nombre: Redes Sociales
+                      nombre_en: Social Networks
+                    vulnerabilidades: []
+  /apps/{id}:
+    get:
+      tags:
+        - Applications
+      summary: Get an application by ID
+      description: Returns the details of a specific application based on its ID.
+      operationId: getAplicacionById
+      parameters:
+        - name: id
+          in: path
+          description: ID of the application
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        '200':
+          description: Application retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  id: 183
+                  nombre: Instagram
+                  icono: https://i.imgur.com/MNaIwAy.jpg
+                  tipo:
+                    id: 32
+                    nombre: Redes Sociales
+                    nombre_en: Social Networks
+                  vulnerabilidades: []
+        '404':
+          description: Application not found with the specified ID
+  /apps/vulnerabilidades:
+    get:
+      tags:
+        - Applications
+      summary: Get vulnerabilities of applications
+      description: Returns a list of all known vulnerabilities for applications.
+      operationId: getVulnerabilidadesAplicaciones
+      responses:
+        '200':
+          description: List of vulnerabilities retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  - idCVE: CVE-2019-16248
+                    descripcion: >-
+                      La funcionalidad 'delete for' en Telegram versiones
+                      anteriores a 5.11 en Android no elimina completamente...
+                    confidentialityImpact: HIGH
+                    integrityImpact: NONE
+                    availabilityImpact: NONE
+                    baseScore: 5.5
+                    baseSeverity: MEDIUM
+                    versionEndExcluding: 5.11.0
+                    versionEndIncluding: null
+  /apps/tipos:
+    get:
+      tags:
+        - Applications
+      summary: Get application types
+      description: Returns a list of available categories for applications.
+      operationId: getTiposAplicaciones
+      responses:
+        '200':
+          description: List of application categories retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  - id: 20
+                    nombre: Utilidades
+                    nombre_en: Utilities
+                  - id: 21
+                    nombre: Compras
+                    nombre_en: Shopping
+components:
+  schemas:
+    UpdatePasswordDto:
+      required:
+        - newPassword
+        - oldPassword
+      type: object
+      properties:
+        oldPassword:
+          type: string
+          description: >-
+            The old password of the user, which is mandatory and cannot be
+            blank.
+        newPassword:
+          type: string
+          description: >-
+            The new password for the user, which is mandatory and cannot be
+            blank.
+      description: Old and new passwords for the user
+    UpdateNameDto:
+      required:
+        - newName
+      type: object
+      properties:
+        newName:
+          type: string
+          description: The new name for the user, which is mandatory and cannot be blank.
+      description: New name for the user
+    RegisterUserDto:
+      required:
+        - email
+        - name
+        - password
+      type: object
+      properties:
+        password:
+          maxLength: 2147483647
+          minLength: 6
+          type: string
+          description: >-
+            The password for the user account, which is mandatory and must be at
+            least 6 characters long.
+        name:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: >-
+            The name of the user, which is mandatory and must be between 1 and
+            50 characters.
+        email:
+          type: string
+          description: >-
+            The email address of the user, which is mandatory and must be a
+            valid email format.
+      description: User registration details
+    LoginUserDto:
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email address of the user, which is required for login.
+        password:
+          type: string
+          description: The password of the user, which is required for login.
+      description: User login credentials
