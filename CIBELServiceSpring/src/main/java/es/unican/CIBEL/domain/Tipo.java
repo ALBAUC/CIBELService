@@ -3,17 +3,23 @@ package es.unican.CIBEL.domain;
 import java.util.Objects;
 
 import jakarta.persistence.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
+@Schema(description = "Represents a category of asset.")
 public class Tipo {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Schema(description = "Unique identifier for the asset type.")
 	private Long id;
 	
+	@Schema(description = "Name of the asset type in Spanish.")
 	private String nombre;
+
+	@Schema(description = "Name of the asset type in English.")
 	private String nombre_en;
-	
+
 	public Tipo() {}
 
 	public Tipo(String nombre) {
@@ -60,5 +66,4 @@ public class Tipo {
 		Tipo other = (Tipo) obj;
 		return Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre);
 	}
-
 }

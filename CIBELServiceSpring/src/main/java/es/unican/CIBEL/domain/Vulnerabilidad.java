@@ -3,28 +3,38 @@ package es.unican.CIBEL.domain;
 import java.util.Objects;
 
 import jakarta.persistence.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Schema(description = "Represents a vulnerability with associated impacts and severity.")
 public class Vulnerabilidad {
 	
 	@Id
+	@Schema(description = "Unique identifier for the vulnerability (CVE identifier).")
 	private String idCVE;
 	
 	@Column(length = 5000)
+	@Schema(description = "Description of the vulnerability in Spanish.")
 	private String descripcion;
 	
 	@Column(length = 5000)
+	@Schema(description = "Description of the vulnerability in English.")
 	private String descripcion_en;
 	
+    @Schema(description = "Impact on confidentiality which can be COMPLETE, HIGH, PARTIAL, LOW or NONE.")
     private String confidentialityImpact;
     
+    @Schema(description = "Impact on integrity which can be COMPLETE, HIGH, PARTIAL, LOW or NONE.")
     private String integrityImpact;
     
+    @Schema(description = "Impact on availability which can be COMPLETE, HIGH, PARTIAL, LOW or NONE.")
     private String availabilityImpact;
     
+    @Schema(description = "Base score indicating the severity of the vulnerability from 0 to 10.")
     private double baseScore;
     
+    @Schema(description = "Base severity classification of the vulnerability which can be CRITICAL, HIGH, MEDIUM and LOW.")
     private String baseSeverity;
     
     public Vulnerabilidad() {}
@@ -124,5 +134,4 @@ public class Vulnerabilidad {
 				&& Objects.equals(confidentialityImpact, other.confidentialityImpact)
 				&& Objects.equals(idCVE, other.idCVE) && Objects.equals(integrityImpact, other.integrityImpact);
 	}
-
 }

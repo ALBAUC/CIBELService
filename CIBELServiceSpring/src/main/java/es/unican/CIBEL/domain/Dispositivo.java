@@ -3,74 +3,87 @@ package es.unican.CIBEL.domain;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
+@Schema(description = "Represents a device, which is a type of asset with various sustainability metrics.")
 public class Dispositivo extends Activo {
-	
-	private int durabilidad;
-	private int reparabilidad;
-	private int reciclabilidad;
-	private int efClimatica;
-	private int efRecursos;
-	private int ecoPuntuacion;
-	
-	public Dispositivo() {
-		
-	}
-	
-	public Dispositivo(String nombre, String icono, Tipo tipo) {
-		super(nombre, icono, tipo);
-	}
 
-	public int getDurabilidad() {
-		return durabilidad;
-	}
+    @Schema(description = "Durability score of the device.")
+    private int durabilidad;
 
-	public void setDurabilidad(int durabilidad) {
-		this.durabilidad = durabilidad;
-	}
+    @Schema(description = "Repairability score of the device.")
+    private int reparabilidad;
 
-	public int getReparabilidad() {
-		return reparabilidad;
-	}
+    @Schema(description = "Recyclability score of the device.")
+    private int reciclabilidad;
 
-	public void setReparabilidad(int reparabilidad) {
-		this.reparabilidad = reparabilidad;
-	}
+    @Schema(description = "Climate efficiency score of the device.")
+    private int efClimatica;
 
-	public int getReciclabilidad() {
-		return reciclabilidad;
-	}
+    @Schema(description = "Resource efficiency score of the device.")
+    private int efRecursos;
 
-	public void setReciclabilidad(int reciclabilidad) {
-		this.reciclabilidad = reciclabilidad;
-	}
+    @Schema(description = "Eco score of the device.")
+    private int ecoPuntuacion;
 
-	public int getEfClimatica() {
-		return efClimatica;
-	}
+    public Dispositivo() {
+        // Constructor vacío
+    }
 
-	public void setEfClimatica(int efClimatica) {
-		this.efClimatica = efClimatica;
-	}
+    public Dispositivo(String nombre, String icono, Tipo tipo) {
+        super(nombre, icono, tipo);
+    }
 
-	public int getEfRecursos() {
-		return efRecursos;
-	}
+    public int getDurabilidad() {
+        return durabilidad;
+    }
 
-	public void setEfRecursos(int efRecursos) {
-		this.efRecursos = efRecursos;
-	}
+    public void setDurabilidad(int durabilidad) {
+        this.durabilidad = durabilidad;
+    }
 
-	public int getEcoPuntuacion() {
-		return ecoPuntuacion;
-	}
+    public int getReparabilidad() {
+        return reparabilidad;
+    }
 
-	public void setEcoPuntuacion(int ecoPuntuacion) {
-		this.ecoPuntuacion = ecoPuntuacion;
-	}
-	
-	public int calcularPuntuacionSeguridad() {
+    public void setReparabilidad(int reparabilidad) {
+        this.reparabilidad = reparabilidad;
+    }
+
+    public int getReciclabilidad() {
+        return reciclabilidad;
+    }
+
+    public void setReciclabilidad(int reciclabilidad) {
+        this.reciclabilidad = reciclabilidad;
+    }
+
+    public int getEfClimatica() {
+        return efClimatica;
+    }
+
+    public void setEfClimatica(int efClimatica) {
+        this.efClimatica = efClimatica;
+    }
+
+    public int getEfRecursos() {
+        return efRecursos;
+    }
+
+    public void setEfRecursos(int efRecursos) {
+        this.efRecursos = efRecursos;
+    }
+
+    public int getEcoPuntuacion() {
+        return ecoPuntuacion;
+    }
+
+    public void setEcoPuntuacion(int ecoPuntuacion) {
+        this.ecoPuntuacion = ecoPuntuacion;
+    }
+
+    public int calcularPuntuacionSeguridad() {
         // Considero un límite de 400 como la máxima gravedad posible
         int puntuacionSeguridad = (int) Math.round(100 - (calcularTotalGravedad() / 4));
         return Math.max(0, Math.min(100, puntuacionSeguridad));
@@ -87,9 +100,8 @@ public class Dispositivo extends Activo {
         return totalGravedad;
     }
 
-	@Override
-	public String toString() {
-		return "Dispositivo [id=" + super.getId() + ", nombre=" + super.getNombre() + ", icono=" + super.getIcono() + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "Dispositivo [id=" + super.getId() + ", nombre=" + super.getNombre() + ", icono=" + super.getIcono() + "]";
+    }
 }
