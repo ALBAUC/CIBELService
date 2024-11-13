@@ -1,7 +1,5 @@
 package es.unican.CIBEL.domain;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -26,8 +24,11 @@ public class Dispositivo extends Activo {
 
     @Schema(description = "Eco score of the device.")
     private int ecoPuntuacion;
+    
+    @Schema(description = "Security score of the device.")
+    private int securityScore;
 
-    public Dispositivo() {
+	public Dispositivo() {
         // Constructor vacío
     }
 
@@ -82,23 +83,14 @@ public class Dispositivo extends Activo {
     public void setEcoPuntuacion(int ecoPuntuacion) {
         this.ecoPuntuacion = ecoPuntuacion;
     }
+    
+    public int getSecurityScore() {
+		return securityScore;
+	}
 
-    public int calcularPuntuacionSeguridad() {
-        // Considero un límite de 400 como la máxima gravedad posible
-        int puntuacionSeguridad = (int) Math.round(100 - (calcularTotalGravedad() / 4));
-        return Math.max(0, Math.min(100, puntuacionSeguridad));
-    }
-
-    public double calcularTotalGravedad() {
-        List<Vulnerabilidad> vulnerabilidades = getVulnerabilidades();
-        int totalGravedad = 0;
-
-        for (Vulnerabilidad v : vulnerabilidades) {
-            totalGravedad += v.getBaseScore() * 10; // baseScore de 0 a 100
-        }
-
-        return totalGravedad;
-    }
+	public void setSecurityScore(int securityScore) {
+		this.securityScore = securityScore;
+	}
 
     @Override
     public String toString() {

@@ -91,7 +91,7 @@ public class UserDevicesController {
 		if (dispositivos.size() != 0) {
 			double s = 0;
 			for (Dispositivo d : dispositivos) {
-				s += d.calcularPuntuacionSeguridad();
+				s += d.getSecurityScore();
 			}
 			result = (int) Math.round(s / dispositivos.size());
 		}
