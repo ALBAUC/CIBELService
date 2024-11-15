@@ -1,6 +1,8 @@
 package es.unican.CIBEL.domain;
 
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -37,6 +39,13 @@ public class Vulnerabilidad {
     @Schema(description = "Base severity classification of the vulnerability which can be CRITICAL, HIGH, MEDIUM and LOW.")
     private String baseSeverity;
     
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "cve_x_cwe",
+    			joinColumns = @JoinColumn(name = "fk_cve"),
+    			inverseJoinColumns = @JoinColumn(name = "fk_cwe"))
+    @Schema(description = "Set of CWEs (Common Weakness Enumerations) associated with this CVE.")
+    private Set<Debilidad> cwes;
+    
     public Vulnerabilidad() {}
 
 	public Vulnerabilidad(String idCVE, String descripcion, String confidentialityImpact, String integrityImpact,
@@ -48,6 +57,7 @@ public class Vulnerabilidad {
 		this.availabilityImpact = availabilityImpact;
 		this.baseScore = baseScore;
 		this.baseSeverity = baseSeverity;
+		this.cwes = new LinkedHashSet<Debilidad>();
 	}
 
 	public String getIdCVE() {
@@ -112,6 +122,14 @@ public class Vulnerabilidad {
 
 	public void setDescripcion_en(String descripcion_en) {
 		this.descripcion_en = descripcion_en;
+	}
+
+	public Set<Debilidad> getCwes() {
+		return cwes;
+	}
+
+	public void setCwes(Set<Debilidad> cwes) {
+		this.cwes = cwes;
 	}
 
 	@Override

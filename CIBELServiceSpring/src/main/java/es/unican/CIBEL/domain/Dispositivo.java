@@ -27,6 +27,9 @@ public class Dispositivo extends Activo {
     
     @Schema(description = "Security score of the device.")
     private int securityScore;
+    
+    @Schema(description = "Indicates whether the eco score value is estimated (true - 1) or real (false - 0).")
+    private boolean ecoPredicted;
 
 	public Dispositivo() {
         // Constructor vacío
@@ -92,7 +95,15 @@ public class Dispositivo extends Activo {
 		this.securityScore = securityScore;
 	}
 
-    @Override
+    public boolean isEcoPredicted() {
+		return ecoPredicted;
+	}
+
+	public void setEcoPredicted(boolean ecoPredicted) {
+		this.ecoPredicted = ecoPredicted;
+	}
+
+	@Override
     public String toString() {
         return "Dispositivo [id=" + super.getId() + ", nombre=" + super.getNombre() + ", icono=" + super.getIcono() + "]";
     }
