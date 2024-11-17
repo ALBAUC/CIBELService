@@ -1,9 +1,11 @@
 package es.unican.CIBEL.service;
 
+import es.unican.CIBEL.domain.Debilidad;
 import es.unican.CIBEL.domain.Dispositivo;
 import es.unican.CIBEL.domain.Tipo;
 import es.unican.CIBEL.domain.Usuario;
 import es.unican.CIBEL.domain.Vulnerabilidad;
+import es.unican.CIBEL.repository.DebilidadRepository;
 import es.unican.CIBEL.repository.DispositivoRepository;
 import es.unican.CIBEL.repository.UsuarioRepository;
 
@@ -21,6 +23,9 @@ public class DispositivoService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private DebilidadRepository debilidadRepository;
 
 	public List<Dispositivo> dispositivos() {
 		return dispositivoRepository.findAll();
@@ -64,5 +69,9 @@ public class DispositivoService {
 
 	public List<Dispositivo> getDispositivosByTipo(String tipo) {
 		return dispositivoRepository.findByTipoNombre(tipo);
+	}
+
+	public List<Debilidad> getDebilidadesDispositivos() {
+		return debilidadRepository.findAll();
 	}
 }

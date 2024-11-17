@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.unican.CIBEL.domain.Debilidad;
 import es.unican.CIBEL.domain.Dispositivo;
 import es.unican.CIBEL.domain.Tipo;
 import es.unican.CIBEL.domain.Vulnerabilidad;
@@ -130,5 +131,10 @@ public class DispositivoController {
 	@GetMapping("/tipos")
 	public List<Tipo> getTiposDispositivos() {
 		return dispositivoService.getTiposDispositivos();
+	}
+	
+	@GetMapping("/debilidades")
+	public List<Debilidad> getDebilidadesDispositivos() {
+		return dispositivoService.getDebilidadesDispositivos();
 	}
 }
