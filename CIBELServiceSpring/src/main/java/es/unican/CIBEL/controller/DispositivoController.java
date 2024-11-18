@@ -133,6 +133,20 @@ public class DispositivoController {
 		return dispositivoService.getTiposDispositivos();
 	}
 	
+	@Operation(
+		    summary = "Retrieve device weaknesses",
+		    description = "Returns a list of all known weaknesses (CWEs) associated with vulnerabilities in devices"
+		)
+		@ApiResponses(value = {
+		    @ApiResponse(
+		        responseCode = "200",
+		        description = "List of weaknesses retrieved successfully",
+		        content = @Content(
+		            mediaType = "application/json",
+		            schema = @Schema(example = "[ { \"idCWE\": \"CWE-269\", \"nombre\": \"Gestión de privilegios inadecuados\", \"nombre_en\": \"Improper Privilege Management\", \"descripcion\": \"El sistema no gestiona adecuadamente los privilegios...\", \"descripcion_en\": \"The system does not properly manage privileges...\" } ]")
+		        )
+		    )
+		})
 	@GetMapping("/debilidades")
 	public List<Debilidad> getDebilidadesDispositivos() {
 		return dispositivoService.getDebilidadesDispositivos();
