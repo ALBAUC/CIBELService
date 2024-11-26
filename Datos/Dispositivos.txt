@@ -28,6 +28,8 @@ Dell Latitude 2110
 HP ElitePad 900
 Dell Latitude E6430
 HP EliteBook 850
+Microsoft Surface Pro Copilot
+Lenovo ThinkPad X1 Carbon Gen 13 Aura Edition
 
 #Smartphones
 *Smartphones
@@ -87,6 +89,17 @@ Asus ZenFone Max 4
 Asus ZenFone 5Q
 Asus ZenFone 3s Max
 Asus ZenFone 3 Laser
+Samsung Galaxy S25 Ultra
+iPhone 15
+Google Pixel 8a
+OnePlus 12
+iPhone 14
+iPhone 16
+Honor 200 Pro
+Google Pixel 9
+Xiaomi Redmi Note 13
+Samsung Galaxy M15 5G
+Samsung Galaxy S24 Ultra
 
 #Smart TVs
 *Smart TVs
@@ -102,16 +115,23 @@ BRAVIA Smart TV
 Samsung D6000 TV
 Samsung PS50C7700
 Smart TV Box H96
+LG SIGNATURE OLED T
 
 #Tablets
 *Tablets
 Xiaomi Mi Pad 4
 Dell Latitude 7202
+Apple iPad Pro (2024)
+Xiaomi Pad 6S Pro 12.4
+Huawei MatePad SE11
+BOOX Note Air4 C
 
 #Consolas
 *Consoles
 Playstation 3
 Microsoft Xbox 360
+Sony PlayStation 4
+Sony PlayStation 5
 
 #Impresoras
 *Printers
@@ -130,6 +150,7 @@ Apple Watch Ultra
 Amazon Echo Dot
 Google Home
 JBL Go 2
+Sony Ult Power Sound Series
 
 #Auriculares inteligentes
 *Smart headphones

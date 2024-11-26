@@ -30,6 +30,9 @@ public class Dispositivo extends Activo {
     
     @Schema(description = "Indicates whether the eco score value is estimated (true - 1) or real (false - 0).")
     private boolean ecoPredicted;
+    
+    @Schema(description = "Indicates whether the security score value is estimated (true - 1) or real (false - 0).")
+    private boolean securityPredicted;
 
 	public Dispositivo() {
         // Constructor vacío
@@ -101,6 +104,14 @@ public class Dispositivo extends Activo {
 
 	public void setEcoPredicted(boolean ecoPredicted) {
 		this.ecoPredicted = ecoPredicted;
+	}
+
+	public boolean isSecurityPredicted() {
+		return securityPredicted;
+	}
+
+	public void setSecurityPredicted(boolean securityPredicted) {
+		this.securityPredicted = securityPredicted;
 	}
 
 	@Override
